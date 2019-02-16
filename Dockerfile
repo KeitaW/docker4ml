@@ -1,27 +1,55 @@
 FROM tensorflow/tensorflow:latest-gpu-py3
-LABEL maintainer="Zimovnov Andrey <zimovnov@gmail.com>"
+LABEL maintainer="Keita Watanabe <keitaw09@gmail.com>"
 ARG DEBIAN_FRONTEND=noninteractive
 
 # install apt packages
 RUN apt-get update
 RUN apt-get install -yq htop nano git wget libglib2.0-0 ffmpeg
-
-RUN pip --no-cache-dir install h5py==2.7.0 \
+RUN pip install --upgrade pip 
+RUN pip --no-cache-dir install h5py \
                 joblib \
                 jupyter \
                 ipywidgets \
                 jupyter_contrib_nbextensions \
-                Keras==2.0.6 \
-                matplotlib==2.0.0 \
-                nltk==3.2.4 \
-                numpy==1.11.2 \
-                opencv-python==3.3.0.9 \
-                pandas==0.19.2 \
-                Pillow==4.0.0 \
-                requests==2.12.4 \
-                scikit-learn==0.18.2 \
-                scipy==0.18.1 \
-                tqdm==4.15.0
+                Keras \
+                matplotlib \
+                nltk \
+                numpy \
+                opencv-python \
+                pandas \
+                Pillow \
+                requests \
+                scikit-learn \
+                scipy \
+                tqdm \
+                torch \
+                torchvision
+RUN wget https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.0-linux-x86_64.tar.gz
+RUN tar -xvzf julia-1.1.0-linux-x86_64.tar.gz
+RUN mv julia-1.1.0 /usr/local/lib
+RUN ln -s /usr/local/lib/julia-1.1.0/bin/julia /usr/local/bin/julia 
+# Install packages
+RUN echo 'import Pkg\n\
+Pkg.add("DataFrames")\n\
+Pkg.add("Distributions")\n\
+Pkg.add("JSON")\n\
+Pkg.add("MatrixMarket")\n\
+Pkg.add("NPZ")\n\
+Pkg.add("ProgressMeter")\n\
+Pkg.add("PyCall")\n\
+Pkg.add("PyPlot")\n\
+Pkg.add("IJulia")\n\
+using DataFrames\n\
+using Distributions\n\
+using JSON\n\
+using MatrixMarket\n\
+using NPZ\n\
+using ProgressMeter\n\
+using PyCall\n\
+using PyPlot\n\
+using IJulia' > /tmp/tmp.jl
+RUN cat /tmp/tmp.jl
+RUN julia /tmp/tmp.jl
 # # setup juptyer
 # RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
 # RUN jupyter contrib nbextension install --user
