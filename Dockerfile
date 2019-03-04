@@ -39,6 +39,7 @@ Pkg.add("ProgressMeter")\n\
 Pkg.add("PyCall")\n\
 Pkg.add("PyPlot")\n\
 Pkg.add("IJulia")\n\
+Pkg.add("Plots")\n\
 using DataFrames\n\
 using Distributions\n\
 using JSON\n\
@@ -47,6 +48,7 @@ using NPZ\n\
 using ProgressMeter\n\
 using PyCall\n\
 using PyPlot\n\
+using Plots\n\
 using IJulia' > /tmp/tmp.jl
 RUN cat /tmp/tmp.jl
 RUN julia /tmp/tmp.jl
