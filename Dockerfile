@@ -4,7 +4,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # install apt packages
 RUN apt-get update
-RUN apt-get install -yq htop nano git wget libglib2.0-0 ffmpeg
+RUN apt-get install -yq htop nano git wget libglib2.0-0 ffmpeg libgtk2.0-0
 RUN pip install --upgrade pip 
 RUN pip --no-cache-dir install h5py \
                 joblib \
@@ -38,8 +38,10 @@ Pkg.add("NPZ")\n\
 Pkg.add("ProgressMeter")\n\
 Pkg.add("PyCall")\n\
 Pkg.add("PyPlot")\n\
-Pkg.add("IJulia")\n\
 Pkg.add("Plots")\n\
+Pkg.add("PlotlyJS")\n\
+Pkg.add("ORCA")\n\
+Pkg.add("IJulia")\n\
 using DataFrames\n\
 using Distributions\n\
 using JSON\n\
@@ -49,6 +51,8 @@ using ProgressMeter\n\
 using PyCall\n\
 using PyPlot\n\
 using Plots\n\
+using PlotlyJS\n\
+using ORCA\n\
 using IJulia' > /tmp/tmp.jl
 RUN cat /tmp/tmp.jl
 RUN julia /tmp/tmp.jl
